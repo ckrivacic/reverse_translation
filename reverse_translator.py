@@ -235,11 +235,11 @@ part3 = arguments['--make-part3']
 part3a = arguments['--make-part3a']
 
 if part3:
-    leading_dna = 'gcatCGTCTCaAGCAGGTCTCaT'
+    leading_dna = 'gcatCGTCTCaGGTCTCaT'
     trailing_dna = 'ggATCCTGAGACCTGAGACGGCAT'
 
 if part3a:
-    leading_dna = 'gcatCGTCTCaAGCAGGTCTCaT'
+    leading_dna = 'gcatCGTCTCaGGTCTCaT'
     trailing_dna = 'ggTTCTTGAGACCTGAGACGGCAT'
 
 try: restriction_sites = arguments['--restriction-sites'].split(',')
