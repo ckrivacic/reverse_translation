@@ -88,10 +88,10 @@ def import_wt_protein_sequence(wt_sequence_file):
 def combine_chains(chain1, chain2, wtchain):
     final_seq = deepcopy(wtchain)
     for index,aa in enumerate(chain1):
-        if aa != wtchain[index] and index != 37:
+        if aa != wtchain[index]:
             final_seq[index] = aa
     for index,aa in enumerate(chain2):
-        if aa != wtchain[index] and index != 37:
+        if aa != wtchain[index]:
             final_seq[index] = aa
 
     # final_seq[37] = 'E'
