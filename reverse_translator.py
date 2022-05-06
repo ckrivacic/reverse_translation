@@ -65,7 +65,7 @@ Options:
 
 """
 
-from klab import docopt
+import docopt
 from klab import cloning
 from copy import deepcopy
 import re, os
