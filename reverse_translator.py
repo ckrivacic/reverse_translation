@@ -47,6 +47,9 @@ Options:
     --from-pdb-folder
         Get design protein sequences from a folder of pdb files.
 
+    --print-protein-seq
+        print the protein sequence before writing dna seq
+
     --combine-chains FASTA
         If you have mutations spread across two identical chains, use
         this flag to combine them into one amino acid sequence. Provide
@@ -91,8 +94,8 @@ def combine_chains(chain1, chain2, wtchain):
         if aa != wtchain[index] and index != 37:
             final_seq[index] = aa
 
-    final_seq[37] = 'E'
-    final_seq[82] = 'T'
+    # final_seq[37] = 'E'
+    # final_seq[82] = 'T'
 
     return final_seq
         
@@ -104,7 +107,7 @@ def import_protein_fasta(inputs):
             if line[0] == '>':
                 current_sequence = line[0:].rstrip()
             else:
-                protein_sequences[current_sequence] = line.rstrip()
+                protein_sequences[current_sequence] += line.rstrip()
 
     return protein_sequences
 
@@ -144,8 +147,8 @@ def import_protein_structure(inputs, wt_protein_fasta_file):
             protein_sequences[name] = "".join(final_design_seq)
         else:
             if len(chains) > 1:
-                print "Warning: Multiple chains found. Splitting \
-sequence into ", len(chains), " DNA sequences for ordering."
+                print "Warning: Multiple chains found. Splitting "\
+"sequence into ", len(chains), " DNA sequences for ordering."
             for index,chain in enumerate(chains):
                 protein_sequences[name + "_chain_" + str(index)] = "".join(chain)
 
@@ -263,5 +266,8 @@ with open(output_file, 'w') as f:
         if not str(key).startswith('>'):
             f.write('>')
         f.write(key[0].replace(":","_") + '\n')
+        if arguments['--print-protein-seq']:
+            print('PROTEIN SEQ FOR {}'.format(key[0]))
+            print(protein_sequences[key[0]])
         f.write(output_sequences[key[0]] + '\n')
 
