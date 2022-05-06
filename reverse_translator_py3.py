@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 """\
 
@@ -148,8 +148,8 @@ def import_protein_structure(inputs, wt_protein_fasta_file):
             protein_sequences[name] = "".join(final_design_seq)
         else:
             if len(chains) > 1:
-                print "Warning: Multiple chains found. Splitting "\
-"sequence into ", len(chains), " DNA sequences for ordering."
+                print("Warning: Multiple chains found. Splitting "\
+"sequence into ", len(chains), " DNA sequences for ordering.")
             for index,chain in enumerate(chains):
                 protein_sequences[name + "_chain_" + str(index)] = "".join(chain)
 
@@ -174,7 +174,7 @@ def make_reversion_mutations(reversion_file,protein_sequences):
         original_design = \
         difflib.get_close_matches(reversion, [design for
             design in protein_sequences])[0]
-        print "Reversion mutations: matched ", reversion, " with ", original_design
+        print("Reversion mutations: matched ", reversion, " with ", original_design)
         reversion_seq = list(deepcopy(protein_sequences[original_design]))
         for mutation in reversions[reversion]:
             if aa_pattern.match(mutation):
@@ -263,12 +263,12 @@ for key in protein_sequences:
 
 output_file = arguments['<output_file>']
 with open(output_file, 'w') as f:
-    for key in sorted(output_sequences.iteritems()):
+    for key in sorted(output_sequences.items()):
         if not str(key).startswith('>'):
             f.write('>')
         f.write(key[0].replace(":","_") + '\n')
         if arguments['--print-protein-seq']:
-            print('PROTEIN SEQ FOR {}'.format(key[0]))
-            print(protein_sequences[key[0]])
+            print(('PROTEIN SEQ FOR {}'.format(key[0])))
+            print((protein_sequences[key[0]]))
         f.write(output_sequences[key[0]] + '\n')
 
